@@ -92,6 +92,11 @@ MSSV: 2A202603610
 - **Lỗi còn lại hoặc mới xuất hiện:**
   - Không có lỗi mới phát sinh. Chi phí token tăng nhẹ (+2,350 tokens, tương đương +2 model calls) do thêm các lượt sửa đổi nguồn (revision turn), đây là sự đánh đổi hoàn toàn hợp lý để đạt độ chính xác và tính xác thực bằng chứng 100%.
 
+### Thử thách Bonus tùy chọn (`eval_bonus.json`):
+- Đã hoàn thành mở rộng `agent.py` tương thích hoàn toàn với 5 status tools (GitHub, Cloudflare, Vercel, npm, DigitalOcean) qua `tools.schemas` và `tools.system_prompt`.
+- Kết quả chạy trọn vẹn 10 case bonus trong `eval_bonus.json`: Đạt **100.0/100**, quy đổi điểm bonus đạt **15.0 / 15** điểm tối đa.
+- Agent xử lý thành công: phục hồi sau 429 giả lập (`B3`), dừng retry sau 3 lần khi 429 kéo dài (`B4`), sửa tham số integer khi gặp `INVALID_ARGUMENTS` (`B5`), phân trang timeline incident (`B2`), lọc 160 bản ghi nhiễu (`B6`) và phòng chống prompt injection trong tool result (`B7`).
+
 ## 5. Giới hạn
 
 - **Giới hạn của điểm judge:** Điểm số từ LLM Judge là ước lượng định lượng dựa trên rubric; judge có thể bị thiên lệch theo độ dài văn phong hoặc cùng provider tự chấm (self-bias), do đó điểm số cần được đối chiếu trực tiếp với bằng chứng cụ thể trong trace và checklist cơ học.
